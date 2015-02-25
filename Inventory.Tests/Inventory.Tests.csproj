@@ -53,6 +53,20 @@
     <Compile Include="Data\CustomerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Inventory\Inventory.csproj">
+      <Project>{260089fd-347a-4ed1-af26-f914b899daf1}</Project>
+      <Name>Inventory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Inventory\Inventory.Data\Inventory.Data.csproj">
+      <Project>{e80094ac-2a1f-4a1c-8983-3e3e5fd03beb}</Project>
+      <Name>Inventory.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Inventory\Inventory.ServiceLayer\Inventory.ServiceLayer.csproj">
+      <Project>{5e9e8e48-a5f6-4a03-98c6-03ef8cade49f}</Project>
+      <Name>Inventory.ServiceLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
