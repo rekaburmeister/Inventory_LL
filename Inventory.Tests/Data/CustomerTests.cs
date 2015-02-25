@@ -17,22 +17,18 @@ namespace Inventory.Tests.Data
             Assert.IsTrue(customer.HasPassword(c_CustomerPassword), "Customer password is not as expected");
         }
 
-        [Test]
-        public void CustomerNameNullOrEmptyThrows()
+        [TestCase(null, TestName = "Null")]
+        [TestCase("", TestName = "Empty")] // wouldn't let  me do string.Empty here, value must be constant
+        public void CustomerNameNullOrEmptyThrows(string userName)
         {
-            Assert.Throws(typeof (ArgumentException), delegate { new Customer(null, "password"); },
-                "Exception is not thrown when customer name is null");
-            Assert.Throws(typeof(ArgumentException), delegate { new Customer(string.Empty, "password"); },
-                "Exception is not thrown when customer name is empty");
+            Assert.Throws(typeof (ArgumentException), delegate { new Customer(userName, "password"); });
         }
 
-        [Test]
-        public void CustomerPasswordNullOrEmptyThrows()
+        [TestCase(null, TestName="Null")]
+        [TestCase("", TestName = "Empty")]
+        public void CustomerPasswordNullOrEmptyThrows(string password)
         {
-            Assert.Throws(typeof(ArgumentException), delegate { new Customer("Customer", null); },
-                "Exception is not thrown when customer password is null");
-            Assert.Throws(typeof(ArgumentException), delegate { new Customer("Customer", string.Empty); },
-                "Exception is not thrown when customer password is empty");
+            Assert.Throws(typeof(ArgumentException), delegate { new Customer("Customer", password); });
         }
     }
 }
