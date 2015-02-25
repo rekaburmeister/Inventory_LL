@@ -9,7 +9,16 @@ namespace Inventory.Data
 
         public Customer(string name, string password)
         {
-            
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Name can't be null or empty");
+            }
+
+            if (string.IsNullOrEmpty(password))
+            {
+                throw new ArgumentException("Password can't be null or empty");
+            }
+
             Name = name;
             Password = password;
         }
