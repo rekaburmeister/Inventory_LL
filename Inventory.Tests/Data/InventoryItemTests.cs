@@ -35,5 +35,17 @@ namespace Inventory.Tests.Data
         {
             Assert.Throws(typeof(ArgumentException), delegate { new InventoryItem("Item1", category, 1,1); });
         }
+
+        [Test]
+        public void NegativePrice()
+        {
+            Assert.Throws(typeof(ArgumentException), delegate { new InventoryItem("Item1", "category", -1, 1); });
+        }
+
+        [Test]
+        public void NegativeStock()
+        {
+            Assert.Throws(typeof(ArgumentException), delegate { new InventoryItem("Item1", "category", 1, -1); });
+        }
     }
 }

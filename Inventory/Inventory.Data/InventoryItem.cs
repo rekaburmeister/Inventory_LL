@@ -15,6 +15,26 @@ namespace Inventory.Data
 
         public InventoryItem(string name, string category, int price, int stock)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Name can't be null or empty");
+            }
+
+            if (string.IsNullOrEmpty(category))
+            {
+                throw new ArgumentException("Category can't be null or empty");
+            }
+
+            if (price < 0)
+            {
+                throw new ArgumentException("Price has to be at least 0");
+            }
+
+            if (stock < 0)
+            {
+                throw new ArgumentException("Stock has to be at least 0");
+            }
+
             Name = name;
             Category = category;
             Price = price;
