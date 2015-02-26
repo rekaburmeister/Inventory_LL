@@ -24,14 +24,14 @@ namespace Inventory.Tests.Data
 
         [TestCase(null, TestName = "Null")]
         [TestCase("", TestName = "Empty")] // wouldn't let  me do string.Empty here, value must be constant
-        public void CustomerNameNullOrEmptyThrows(string itemName)
+        public void ItemNameNullOrEmptyThrows(string itemName)
         {
             Assert.Throws(typeof(ArgumentException), delegate { new InventoryItem(itemName, "category", 1, 1); });
         }
 
         [TestCase(null, TestName = "Null")]
         [TestCase("", TestName = "Empty")]
-        public void CustomerPasswordNullOrEmptyThrows(string category)
+        public void ItemCategoryNullOrEmptyThrows(string category)
         {
             Assert.Throws(typeof(ArgumentException), delegate { new InventoryItem("Item1", category, 1,1); });
         }
