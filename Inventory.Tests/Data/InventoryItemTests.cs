@@ -1,4 +1,5 @@
-﻿using Inventory.Data;
+﻿using System;
+using Inventory.Data;
 using NUnit.Framework;
 
 namespace Inventory.Tests.Data
@@ -19,6 +20,20 @@ namespace Inventory.Tests.Data
             Assert.AreEqual(c_CategoryName, item.Category, "Item category does not match");
             Assert.AreEqual(c_Price, item.Price, "Item price does not match");
             Assert.AreEqual(c_Stock, item.Stock, "Item stock does not match");
+        }
+
+        [TestCase(null, TestName = "Null")]
+        [TestCase("", TestName = "Empty")] // wouldn't let  me do string.Empty here, value must be constant
+        public void CustomerNameNullOrEmptyThrows(string itemName)
+        {
+            Assert.Throws(typeof(ArgumentException), delegate { new InventoryItem(itemName, "category", 1, 1); });
+        }
+
+        [TestCase(null, TestName = "Null")]
+        [TestCase("", TestName = "Empty")]
+        public void CustomerPasswordNullOrEmptyThrows(string category)
+        {
+            Assert.Throws(typeof(ArgumentException), delegate { new InventoryItem("Item1", category, 1,1); });
         }
     }
 }
