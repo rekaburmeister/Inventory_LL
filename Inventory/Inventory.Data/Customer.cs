@@ -4,12 +4,12 @@ namespace Inventory.Data
 {
     public class Customer
     {
-        public string Name { get; private set; }
+        public string UserName { get; private set; }
         private string Password { get; set; }
 
-        public Customer(string name, string password)
+        public Customer(string userName, string password)
         {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(userName))
             {
                 throw new ArgumentException("Name can't be null or empty");
             }
@@ -19,7 +19,7 @@ namespace Inventory.Data
                 throw new ArgumentException("Password can't be null or empty");
             }
 
-            Name = name;
+            UserName = userName;
             Password = password;
         }
 
