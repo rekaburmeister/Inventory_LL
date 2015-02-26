@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Inventory.Data;
+using NUnit.Framework;
 
 namespace Inventory.Tests.Data
 {
@@ -17,7 +18,7 @@ namespace Inventory.Tests.Data
             Assert.AreEqual(c_ItemName, item.Name, "Item name does not match");
             Assert.AreEqual(c_CategoryName, item.Category, "Item category does not match");
             Assert.AreEqual(c_Price, item.Price, "Item price does not match");
-            Assert.AreEqual(c_Price, item.Stock, "Item stock does not match");
+            Assert.AreEqual(c_Stock, item.Stock, "Item stock does not match");
         }
     }
 }
