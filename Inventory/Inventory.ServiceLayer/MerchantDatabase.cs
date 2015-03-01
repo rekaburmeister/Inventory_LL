@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Inventory.Data;
 
-namespace Inventory.Data
+namespace Inventory.ServiceLayer
 {
     public class MerchantDatabase
     {
