@@ -8,5 +8,8 @@ namespace Inventory.Data
 {
     public class Merchant
     {
+        public string Name { get; set; }
+        public Inventory Inventory { get; set; }
+        public ICollection<Customer> Customers { get; set; }
     }
 }

@@ -8,5 +8,6 @@ namespace Inventory.Data
 {
     public class Inventory
     {
+        public ICollection<InventoryItem> InventoryItems { get; set; }
     }
 }
