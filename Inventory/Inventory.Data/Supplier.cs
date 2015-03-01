@@ -9,6 +9,6 @@ namespace Inventory.Data
     public class Supplier
     {
         public string Name { get; set; }
-        public Inventory Inventory { get; set; }
+        public InventoryObject InventoryObject { get; set; }
     }
 }
