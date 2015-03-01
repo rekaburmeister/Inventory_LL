@@ -57,6 +57,7 @@
     <Compile Include="Data\InventoryItemTests.cs" />
     <Compile Include="Data\InventoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Inventory\Inventory.Data\Inventory.Data.csproj">
