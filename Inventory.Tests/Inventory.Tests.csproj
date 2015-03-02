@@ -55,16 +55,19 @@
   <ItemGroup>
     <Compile Include="Data\CustomerTests.cs" />
     <Compile Include="Data\InventoryItemTests.cs" />
+    <Compile Include="Data\InventoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceTests.cs" />
+    <Compile Include="PurchaseTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Inventory\Inventory.csproj">
-      <Project>{260089fd-347a-4ed1-af26-f914b899daf1}</Project>
-      <Name>Inventory</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Inventory\Inventory.Data\Inventory.Data.csproj">
       <Project>{e80094ac-2a1f-4a1c-8983-3e3e5fd03beb}</Project>
       <Name>Inventory.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Inventory\Inventory.Purchase\Inventory.Purchase.csproj">
+      <Project>{c77f1f49-a37b-4571-9ced-c854f446e95b}</Project>
+      <Name>Inventory.Purchase</Name>
     </ProjectReference>
     <ProjectReference Include="..\Inventory\Inventory.ServiceLayer\Inventory.ServiceLayer.csproj">
       <Project>{5e9e8e48-a5f6-4a03-98c6-03ef8cade49f}</Project>

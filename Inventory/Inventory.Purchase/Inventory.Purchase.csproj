@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{260089FD-347A-4ED1-AF26-F914B899DAF1}</ProjectGuid>
+    <ProjectGuid>{C77F1F49-A37B-4571-9CED-C854F446E95B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Inventory</RootNamespace>
-    <AssemblyName>Inventory</AssemblyName>
+    <RootNamespace>Inventory.Purchase</RootNamespace>
+    <AssemblyName>Inventory.Purchase</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,7 +39,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LiveCustomer.cs" />
+    <Compile Include="Merchant.cs" />
+    <Compile Include="LiveSupplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Inventory.Data\Inventory.Data.csproj">
+      <Project>{E80094AC-2A1F-4A1C-8983-3E3E5FD03BEB}</Project>
+      <Name>Inventory.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Inventory.ServiceLayer\Inventory.ServiceLayer.csproj">
+      <Project>{5E9E8E48-A5F6-4A03-98C6-03EF8CADE49F}</Project>
+      <Name>Inventory.ServiceLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
