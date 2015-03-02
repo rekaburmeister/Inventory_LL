@@ -29,9 +29,9 @@ namespace Inventory.ServiceLayer
             InventoryHandler.AddItem(item);
         }
 
-        public InventoryItem GetItem(string name, string category)
+        public InventoryItem FindItem(string name, string category)
         {
-            return InventoryHandler.GetItem(name, category);
+            return InventoryHandler.FindItem(name, category);
         }
 
         public int GetNumberOfInventoryItems()

@@ -9,7 +9,7 @@ namespace Inventory.ServiceLayer
         ICollection<Category> Categories { get; set; }
 
         void AddItem(InventoryItem item);
-        InventoryItem GetItem(string name);
+        InventoryItem FindItem(string name, string category);
         int GetNumberOfInventoryItems();
 
         void AddCategory(string categoryName);

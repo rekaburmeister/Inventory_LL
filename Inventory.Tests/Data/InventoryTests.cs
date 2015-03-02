@@ -89,7 +89,7 @@ namespace Inventory.Tests.Data
         {
             m_Inventory.AddItem(m_ExistantItem);
             m_Inventory.UpdateItemStock(c_Item1, c_Category, 5);
-            var item = m_Inventory.GetItem(c_Item1, c_Category);
+            var item = m_Inventory.FindItem(c_Item1, c_Category);
 
             Assert.AreEqual(5, item.Stock, "The stock hasn't been updated");
         }

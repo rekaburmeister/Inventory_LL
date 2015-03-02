@@ -33,7 +33,7 @@ namespace Inventory.Data
             InventoryItems.Remove(item);
         }
 
-        public InventoryItem GetItem(string name, string category)
+        public InventoryItem FindItem(string name, string category)
         {
             return InventoryItems.Single(i => i.Name.Equals(name) && i.Category.Equals(category));
         }
@@ -45,7 +45,7 @@ namespace Inventory.Data
 
         public void UpdateItemStock(string name, string category, int newStock)
         {
-            var item = GetItem(name, category);
+            var item = FindItem(name, category);
             item.Stock = newStock;
         }
 
