@@ -1,36 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Inventory.Data;
-
-namespace Inventory.ServiceLayer
+﻿namespace Inventory.ServiceLayer
 {
-    class SupplierDatabase : IInventoryDatabase
+    class SupplierDatabase : BaseDatabase
     {
-        public ICollection<InventoryItem> InventoryItems { get; set; }
-        private InventoryHandler InventoryHandler { get; set; }
-        
-        public SupplierDatabase()
+        public void UpdateStock(string name, string category, int stock)
         {
-            InventoryItems = new List<InventoryItem>();
+            InventoryHandler.UpdateItemStock(name, category, stock);
         }
-
-        public void AddItem(InventoryItem item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public InventoryItem GetItem(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateStock(string name, int stock)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }
