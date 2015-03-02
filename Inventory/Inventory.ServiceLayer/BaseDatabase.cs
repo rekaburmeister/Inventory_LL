@@ -29,9 +29,9 @@ namespace Inventory.ServiceLayer
             InventoryHandler.AddItem(item);
         }
 
-        public InventoryItem GetItem(string name)
+        public InventoryItem GetItem(string name, string category)
         {
-            throw new NotImplementedException();
+            return InventoryHandler.GetItem(name, category);
         }
 
         public int GetNumberOfInventoryItems()

@@ -54,7 +54,7 @@ namespace Inventory.Tests
         [Test]
         public void PurchaseItem()
         {
-            throw new NotImplementedException();
+            Assert.IsTrue(m_Merchant.BuyItem("Item 1", "Cat 1"), "Couldn't purchase the item");
         }
 
         [Test]
