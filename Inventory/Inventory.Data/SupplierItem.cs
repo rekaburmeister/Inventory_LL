@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 
 namespace Inventory.Data
 {
-    public class InventoryItem
+    public class SupplierItem : IInventoryItem
     {
         public string Name { get; private set; }
         public string Category { get; private set; }
         public int Price { get; set; }
         public int Stock { get; set; }
+        public Supplier PreferredSupplier { get; set; }
+        public Supplier FailoverSupplier { get; set; }
+        public int PurchasedPrice { get; set; }
 
-        public InventoryItem(string name, string category, int price, int stock)
+        public SupplierItem(string name, string category, int price, int stock)
         {
             if (string.IsNullOrEmpty(name))
             {

@@ -6,16 +6,16 @@ namespace Inventory.Data
 {
     public class InventoryHandler
     {
-        private ICollection<InventoryItem> InventoryItems { get; set; }
+        private ICollection<IInventoryItem> InventoryItems { get; set; }
 
         public int Count { get { return InventoryItems.Count; } }
 
-        public InventoryHandler(ICollection<InventoryItem> inventoryItems)
+        public InventoryHandler(ICollection<IInventoryItem> inventoryItems)
         {
             InventoryItems = inventoryItems;
         }
 
-        public void AddItem(InventoryItem item)
+        public void AddItem(IInventoryItem item)
         {
             if (!InventoryItems.Any(i => i.Name.Equals(item.Name) && i.Category.Equals(item.Category)))
             {
@@ -27,13 +27,13 @@ namespace Inventory.Data
             }
         }
 
-        public void RemoveItem(InventoryItem item)
+        public void RemoveItem(IInventoryItem item)
         {
             CheckItemInInventory(item);
             InventoryItems.Remove(item);
         }
 
-        public InventoryItem FindItem(string name, string category)
+        public IInventoryItem FindItem(string name, string category)
         {
             return InventoryItems.Single(i => i.Name.Equals(name) && i.Category.Equals(category));
         }
@@ -46,7 +46,8 @@ namespace Inventory.Data
         public void UpdateItemStock(string name, string category, int newStock)
         {
             var item = FindItem(name, category);
-            item.Stock = newStock;
+
+            item.Stock += newStock;
         }
 
         public int GetItemStock(string itemName, string category)
@@ -55,7 +56,7 @@ namespace Inventory.Data
         }
 
         // This function should really be private but I wanted to have a unit test for it. Make private if possible 
-        public void CheckItemInInventory(InventoryItem item, bool exists = true)
+        public void CheckItemInInventory(IInventoryItem item, bool exists = true)
         {
             string errorMessage =
                 exists

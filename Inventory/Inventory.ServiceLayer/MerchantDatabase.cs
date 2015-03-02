@@ -10,7 +10,7 @@ namespace Inventory.ServiceLayer
         private ICollection<Customer> Customers { get; set; }
         private ICollection<Supplier> Suppliers { get; set; }
 
-        public MerchantDatabase()
+        public MerchantDatabase() : base(new List<IInventoryItem>())
         {
             Customers = new List<Customer>();
             Suppliers = new List<Supplier>();
@@ -50,6 +50,28 @@ namespace Inventory.ServiceLayer
             return Suppliers.Single(s => s.Name.Equals(name));
         }
 
-        
+        public void ExtendCategories(IEnumerable<string> newCategories)
+        {
+            foreach (string category in newCategories)
+            {
+                if (! Categories.Any(c => c.Name.Equals(category)))
+                {
+                    Categories.Add(new Category{Name = category});
+                }
+            }
+        }
+
+
+        public bool DoesItemHaveFailoverSupplier(string itemName, string category)
+        {
+            var item = InventoryHandler.FindItem(itemName, category);
+            return item.FailoverSupplier != null;
+        }
+
+        public void SetFailoverSupplierForItem(string name, string category, Supplier supplier)
+        {
+            var item = InventoryHandler.FindItem(name, category);
+            item.FailoverSupplier = supplier;
+        }
     }
 }

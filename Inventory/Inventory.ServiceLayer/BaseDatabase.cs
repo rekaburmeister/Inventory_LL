@@ -5,21 +5,21 @@ using Inventory.Data;
 
 namespace Inventory.ServiceLayer
 {
-    public class BaseDatabase : IInventoryDatabase
+    public class BaseDatabase
     {
-        public ICollection<InventoryItem> InventoryItems { get; set; }
+        public ICollection<IInventoryItem> InventoryItems { get; set; }
 
         public ICollection<Category> Categories { get; set; }
         protected InventoryHandler InventoryHandler { get; set; }
 
-        public BaseDatabase()
+        public BaseDatabase(List<IInventoryItem> items)
         {
             Categories = new List<Category>();
-            InventoryItems = new List<InventoryItem>();
+            InventoryItems = items;
             InventoryHandler = new InventoryHandler(InventoryItems);
         }
 
-        public void AddItem(InventoryItem item)
+        public void AddItem(IInventoryItem item)
         {
             if (!Categories.Any(c => c.Name.Equals(item.Category)))
             {
@@ -29,9 +29,19 @@ namespace Inventory.ServiceLayer
             InventoryHandler.AddItem(item);
         }
 
-        public InventoryItem FindItem(string name, string category)
+        public IInventoryItem FindItem(string name, string category)
         {
             return InventoryHandler.FindItem(name, category);
+        }
+
+        public bool HasItem(string name, string category)
+        {
+            return InventoryHandler.HasItem(name, category);
+        }
+
+        public void ModifyStockValue(string name, string category, int modifyBy)
+        {
+            InventoryHandler.UpdateItemStock(name, category, modifyBy);
         }
 
         public int GetNumberOfInventoryItems()

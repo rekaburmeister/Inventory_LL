@@ -11,8 +11,9 @@ namespace Inventory.Tests
     public class PurchaseTests
     {
         private Merchant m_Merchant;
-        private List<LiveCustomer> m_Customers;
-        private List<LiveSupplier> m_Suppliers;
+        private LiveSupplier m_LiveSupplier;
+        private LiveSupplier m_FailoverSupplier;
+        private LiveSupplier m_SecondaryFailoverSupplier;
 
         private const string c_Customer1 = "LiveCustomer 1";
         private const string c_Password1 = "Password1";
@@ -25,21 +26,42 @@ namespace Inventory.Tests
 
             m_Merchant.AddCustomer(customer1);
 
-            var supplier1 = new LiveSupplier("LiveSupplier 1");
+            m_LiveSupplier = new LiveSupplier("LiveSupplier 1");
             var supplier2 = new LiveSupplier("LiveSupplier 2");
-            var supplier3 = new LiveSupplier("LiveSupplier 3");
+            m_FailoverSupplier = new LiveSupplier("LiveSupplier 3");
             var supplier4 = new LiveSupplier("LiveSupplier 4");
-            var supplier5 = new LiveSupplier("LiveSupplier 5");
+            m_SecondaryFailoverSupplier = new LiveSupplier("LiveSupplier 5");
 
             var categories = new [] {"Cat 1", "Cat 2", "Cat 3"};
-            var item1 = new InventoryItem("Item 1", "Cat 1", 300, 5);
-            var item2 = new InventoryItem("Item 2", "Cat 1", 300, 3);
-            var item3 = new InventoryItem("Item 3", "Cat 2", 300, 2);
-            var item4 = new InventoryItem("Item 4", "Cat 2", 300, 1);
-            var item5 = new InventoryItem("Item 5", "Cat 3", 300, 3);
-            var item6 = new InventoryItem("Item 5", "Cat 3", 370, 3);
-            var item7 = new InventoryItem("Item 5", "Cat 3", 350, 2);
-            var item8 = new InventoryItem("Item 6", "Cat 3", 300, 4);
+
+            foreach (string category in categories)
+            {
+                m_LiveSupplier.AddCategory(category);
+                supplier2.AddCategory(category);
+                m_FailoverSupplier.AddCategory(category);
+                supplier4.AddCategory(category);
+                m_SecondaryFailoverSupplier.AddCategory(category);
+            }
+
+            m_LiveSupplier.AddItem(new SupplierItem("Item 1", "Cat 1", 300, 5));
+            m_LiveSupplier.AddItem(new SupplierItem("Item 2", "Cat 1", 300, 3));
+            m_LiveSupplier.AddItem(new SupplierItem("Item 3", "Cat 2", 300, 2));
+            m_LiveSupplier.AddItem(new SupplierItem("Item 5", "Cat 3", 300, 3));
+
+            supplier2.AddItem(new SupplierItem("Item 4", "Cat 2", 300, 1));
+            supplier2.AddItem(new SupplierItem("Item 5", "Cat 3", 370, 3));
+            supplier2.AddItem(new SupplierItem("Item 6", "Cat 3", 300, 4));
+
+            m_FailoverSupplier.AddItem(new SupplierItem("Item 2", "Cat 1", 300, 3));
+            m_FailoverSupplier.AddItem(new SupplierItem("Item 3", "Cat 2", 300, 1));
+
+            supplier4.AddItem(new SupplierItem("Item 5", "Cat 3", 300, 3));
+            supplier4.AddItem(new SupplierItem("Item 2", "Cat 1", 300, 3));
+
+            m_SecondaryFailoverSupplier.AddItem(new SupplierItem("Item 2", "Cat 1", 300, 3));
+            m_SecondaryFailoverSupplier.AddItem(new SupplierItem("Item 3", "Cat 2", 350, 2));
+
+            m_Merchant.InitiliseSuppliers(new[] { m_LiveSupplier, supplier2, m_FailoverSupplier, supplier4, m_SecondaryFailoverSupplier});
         }
 
         [Test]
@@ -60,19 +82,59 @@ namespace Inventory.Tests
         [Test]
         public void UpdateSupplierStock()
         {
-            throw new NotImplementedException();
+            int supplierStock = m_LiveSupplier.StockOf("Item 1", "Cat 1");
+            m_Merchant.BuyItem("Item 1", "Cat 1");
+            Assert.AreEqual(supplierStock - 1, m_LiveSupplier.StockOf("Item 1", "Cat 1"), "Supplier stock didn't decrease with purchase");
         }
 
         [Test]
         public void FailoverSupplier()
         {
-            throw new NotImplementedException();
+            const string c_ItemName = "Item 2";
+            const string c_CategoryName = "Cat 1";
+            Assert.AreEqual(3, m_LiveSupplier.StockOf(c_ItemName, c_CategoryName), "Initial stock for item is not 3");
+            Assert.AreEqual(3, m_FailoverSupplier.StockOf(c_ItemName, c_CategoryName), "Initial stock for item is not 3");
+            m_Merchant.BuyItem(c_ItemName, c_CategoryName);
+            m_Merchant.BuyItem(c_ItemName, c_CategoryName);
+            m_Merchant.BuyItem(c_ItemName, c_CategoryName);
+
+            Assert.AreEqual(0, m_LiveSupplier.StockOf(c_ItemName, c_CategoryName), "Stock didn't go down to 0");
+
+            m_Merchant.BuyItem(c_ItemName, c_CategoryName);
+            m_Merchant.BuyItem(c_ItemName, c_CategoryName);
+
+            Assert.AreEqual(1, m_FailoverSupplier.StockOf("Item 2", "Cat 1"), "Stock didn't go down to 1");
+            
         }
 
         [Test]
-        public void SecondaryFailoverSupplier()
+        public void FailoverToNthSupplier()
         {
-            throw new NotImplementedException();
+            const string c_ItemName = "Item 3";
+            const string c_CategoryName = "Cat 2";
+            Assert.AreEqual(2, m_LiveSupplier.StockOf(c_ItemName, c_CategoryName), "Initial stock for item is not 2");
+            Assert.AreEqual(1, m_FailoverSupplier.StockOf(c_ItemName, c_CategoryName), "Initial stock for item is not 1");
+            Assert.AreEqual(2, m_SecondaryFailoverSupplier.StockOf(c_ItemName, c_CategoryName), "Initial stock for item is not 2");
+
+            m_Merchant.BuyItem(c_ItemName, c_CategoryName);
+            Assert.AreEqual(1, m_LiveSupplier.StockOf(c_ItemName, c_CategoryName), "Stock didn't change");
+            Assert.AreEqual(1, m_FailoverSupplier.StockOf(c_ItemName, c_CategoryName), "Stock changed");
+            Assert.AreEqual(2, m_SecondaryFailoverSupplier.StockOf(c_ItemName, c_CategoryName), "Stock changed");
+            
+            m_Merchant.BuyItem(c_ItemName, c_CategoryName);
+            Assert.AreEqual(0, m_LiveSupplier.StockOf(c_ItemName, c_CategoryName), "Stock didn't change");
+            Assert.AreEqual(1, m_FailoverSupplier.StockOf(c_ItemName, c_CategoryName), "Stock changed");
+            Assert.AreEqual(2, m_SecondaryFailoverSupplier.StockOf(c_ItemName, c_CategoryName), "Stock changed");
+
+            m_Merchant.BuyItem(c_ItemName, c_CategoryName);
+            Assert.AreEqual(0, m_LiveSupplier.StockOf(c_ItemName, c_CategoryName), "Stock changed");
+            Assert.AreEqual(0, m_FailoverSupplier.StockOf(c_ItemName, c_CategoryName), "Stock didn't change");
+            Assert.AreEqual(2, m_SecondaryFailoverSupplier.StockOf(c_ItemName, c_CategoryName), "Stock changed");
+
+            m_Merchant.BuyItem(c_ItemName, c_CategoryName);
+            Assert.AreEqual(0, m_LiveSupplier.StockOf(c_ItemName, c_CategoryName), "Stock changed");
+            Assert.AreEqual(0, m_FailoverSupplier.StockOf(c_ItemName, c_CategoryName), "Stock changed");
+            Assert.AreEqual(1, m_SecondaryFailoverSupplier.StockOf(c_ItemName, c_CategoryName), "Stock didn't change");
         }
 
         [Test]
