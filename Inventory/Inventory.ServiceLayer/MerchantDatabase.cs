@@ -5,19 +5,22 @@ using Inventory.Data;
 
 namespace Inventory.ServiceLayer
 {
-    public class MerchantDatabase
+    public class MerchantDatabase : IInventoryDatabase
     {
         private ICollection<Customer> Customers { get; set; }
         private ICollection<Category> Categories { get; set; }
         private ICollection<Supplier> Suppliers { get; set; }
-        private InventoryObject InventoryObject { get; set; }
+        public ICollection<InventoryItem> InventoryItems { get; set; }
+
+        private InventoryHandler InventoryHandler { get; set; }
 
         public MerchantDatabase()
         {
             Customers = new List<Customer>();
             Categories = new List<Category>();
             Suppliers = new List<Supplier>();
-            InventoryObject = new InventoryObject();
+            InventoryItems = new List<InventoryItem>();
+            InventoryHandler = new InventoryHandler(InventoryItems);
         }
 
         public void AddCategory(string categoryName)
@@ -37,19 +40,19 @@ namespace Inventory.ServiceLayer
             return Categories.Select(c => c.Name);
         } 
 
-        public void AddInventoryItem(MerchantItem item)
+        public void AddItem(InventoryItem item)
         {
             if (!Categories.Any(c => c.Name.Equals(item.Category)))
             {
                 throw new Exception(string.Format("The '{0}' category is not found in the database", item.Category));
             }
 
-            InventoryObject.AddItem(item);
+            InventoryHandler.AddItem(item);
         }
 
         public int GetNumberOfInventoryItems()
         {
-            return InventoryObject.Count;
+            return InventoryHandler.Count;
         }
 
         public void AddCustomer(Customer customer)
@@ -84,6 +87,16 @@ namespace Inventory.ServiceLayer
         public Supplier FindSupplier(string name)
         {
             return Suppliers.Single(s => s.Name.Equals(name));
+        }
+
+        public InventoryItem GetItem(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateStock(string name, int stock)
+        {
+            throw new NotImplementedException();
         }
     }
 }

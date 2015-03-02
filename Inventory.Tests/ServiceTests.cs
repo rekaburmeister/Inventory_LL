@@ -54,14 +54,14 @@ namespace Inventory.Tests
             m_MerchantDatabase.AddCategory(c_Category1);
 
             Assert.DoesNotThrow(
-                delegate { m_MerchantDatabase.AddInventoryItem(new MerchantItem(c_Item1, c_Category1, 1, 1)); },
+                delegate { m_MerchantDatabase.AddItem(new MerchantItem(c_Item1, c_Category1, 1, 1)); },
                 "Item couldn't be added");
             Assert.Throws(
                 typeof (Exception),
-                delegate { m_MerchantDatabase.AddInventoryItem(new MerchantItem(c_Item1, c_Category2, 1, 1)); },
+                delegate { m_MerchantDatabase.AddItem(new MerchantItem(c_Item1, c_Category2, 1, 1)); },
                 "Added item with its category not in the database");
             Assert.DoesNotThrow(
-                delegate { m_MerchantDatabase.AddInventoryItem(new MerchantItem(c_Item2, c_Category1, 1, 1)); },
+                delegate { m_MerchantDatabase.AddItem(new MerchantItem(c_Item2, c_Category1, 1, 1)); },
                 "Item couldn't be added");
             Assert.AreEqual(2, m_MerchantDatabase.GetNumberOfInventoryItems(), "Number of inventory items doesn't match");
         }

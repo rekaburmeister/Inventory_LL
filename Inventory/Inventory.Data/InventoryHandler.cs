@@ -4,15 +4,15 @@ using System.Linq;
 
 namespace Inventory.Data
 {
-    public class InventoryObject
+    public class InventoryHandler
     {
         private ICollection<InventoryItem> InventoryItems { get; set; }
 
         public int Count { get { return InventoryItems.Count; } }
 
-        public InventoryObject()
+        public InventoryHandler(ICollection<InventoryItem> inventoryItems)
         {
-            InventoryItems = new List<InventoryItem>();
+            InventoryItems = inventoryItems;
         }
 
         public void AddItem(InventoryItem item)

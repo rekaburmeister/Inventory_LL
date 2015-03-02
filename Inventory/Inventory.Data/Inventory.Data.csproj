@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="Category.cs" />
     <Compile Include="Customer.cs" />
-    <Compile Include="InventoryObject.cs" />
+    <Compile Include="InventoryHandler.cs" />
     <Compile Include="InventoryItem.cs" />
     <Compile Include="MerchantItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

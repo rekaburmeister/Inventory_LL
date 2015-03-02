@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Inventory.Data;
 
@@ -7,7 +8,7 @@ namespace Inventory.Tests.Data
     [TestFixture]
     public class InventoryTests
     {
-        private InventoryObject m_Inventory;
+        private InventoryHandler m_Inventory;
         private InventoryItem m_ExistantItem;
         private InventoryItem m_NonExistantItem;
 
@@ -18,7 +19,7 @@ namespace Inventory.Tests.Data
         [TestFixtureSetUp]
         public void Setup()
         {
-            m_Inventory = new InventoryObject();
+            m_Inventory = new InventoryHandler(new List<InventoryItem>());
             m_ExistantItem = new InventoryItem(c_Item1, c_Category, 1, 1);
             m_NonExistantItem = new InventoryItem(c_Item2, c_Category, 1, 1);
         }
@@ -26,7 +27,7 @@ namespace Inventory.Tests.Data
         [TearDown]
         public void TearDown()
         {
-            m_Inventory = new InventoryObject();
+            m_Inventory = new InventoryHandler(new List<InventoryItem>());
         }
 
         [Test]
