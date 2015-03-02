@@ -10,5 +10,11 @@ namespace Inventory.Data
     {
         public string Name { get; set; }
         public InventoryObject InventoryObject { get; set; }
+
+        public Supplier(string supplierName)
+        {
+            Name = supplierName;
+            InventoryObject = new InventoryObject();
+        }
     }
 }

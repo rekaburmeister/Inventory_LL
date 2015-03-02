@@ -108,5 +108,34 @@ namespace Inventory.Tests
                 delegate { m_MerchantDatabase.AddCustomer(customer2); },
                 "Couldn't add customer with same password");
         }
+
+        [Test]
+        public void AddAndGetSupplier()
+        {
+            const string c_SupplierName = "supplier";
+            Supplier supplier = new Supplier(c_SupplierName);
+            Assert.Throws(
+                typeof(InvalidOperationException),
+                delegate { m_MerchantDatabase.FindSupplier(c_SupplierName); },
+                "No exception raised when Supplier wasn't found");
+            m_MerchantDatabase.AddSupplier(supplier);
+            Supplier returned = m_MerchantDatabase.FindSupplier(c_SupplierName);
+            Assert.AreEqual(supplier, returned, "Original and loaded Supplier are not the same");
+        }
+
+        [Test]
+        public void CantCreateSameSupplierTwice()
+        {
+            const string c_SupplierName = "Supplier";
+            Supplier supplier1 = new Supplier(c_SupplierName);
+            Supplier supplier2 = new Supplier(c_SupplierName);
+
+            m_MerchantDatabase.AddSupplier(supplier1);
+
+            Assert.Throws(
+                typeof(Exception),
+                delegate { m_MerchantDatabase.AddSupplier(supplier2); },
+                "No exception raised when Supplier is already in the database");
+        }
     }
 }

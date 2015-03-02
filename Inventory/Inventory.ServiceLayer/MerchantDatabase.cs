@@ -68,5 +68,22 @@ namespace Inventory.ServiceLayer
         {
             return Customers.Single(c => c.UserName.Equals(userName));
         }
+
+        public void AddSupplier(Supplier supplier)
+        {
+            if (!Suppliers.Any(s => s.Name.Equals(supplier.Name)))
+            {
+                Suppliers.Add(supplier);
+            }
+            else
+            {
+                throw new Exception(string.Format("Supplier '{0}' is already in the database", supplier.Name));
+            }
+        }
+
+        public Supplier FindSupplier(string name)
+        {
+            return Suppliers.Single(s => s.Name.Equals(name));
+        }
     }
 }
