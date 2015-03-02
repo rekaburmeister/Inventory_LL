@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.ServiceLayer", "I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Purchase", "Inventory.Purchase\Inventory.Purchase.csproj", "{C77F1F49-A37B-4571-9CED-C854F446E95B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Exceptions", "Inventory.Exceptions\Inventory.Exceptions.csproj", "{396921AA-CF38-4016-A13F-BF7CA3B88AE7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C77F1F49-A37B-4571-9CED-C854F446E95B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C77F1F49-A37B-4571-9CED-C854F446E95B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C77F1F49-A37B-4571-9CED-C854F446E95B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{396921AA-CF38-4016-A13F-BF7CA3B88AE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{396921AA-CF38-4016-A13F-BF7CA3B88AE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{396921AA-CF38-4016-A13F-BF7CA3B88AE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{396921AA-CF38-4016-A13F-BF7CA3B88AE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
