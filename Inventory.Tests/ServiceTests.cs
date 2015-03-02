@@ -54,16 +54,59 @@ namespace Inventory.Tests
             m_MerchantDatabase.AddCategory(c_Category1);
 
             Assert.DoesNotThrow(
-                delegate { m_MerchantDatabase.AddInventoryItem(new InventoryItem(c_Item1, c_Category1, 1, 1)); },
+                delegate { m_MerchantDatabase.AddInventoryItem(new MerchantItem(c_Item1, c_Category1, 1, 1)); },
                 "Item couldn't be added");
             Assert.Throws(
                 typeof (Exception),
-                delegate { m_MerchantDatabase.AddInventoryItem(new InventoryItem(c_Item1, c_Category2, 1, 1)); },
+                delegate { m_MerchantDatabase.AddInventoryItem(new MerchantItem(c_Item1, c_Category2, 1, 1)); },
                 "Added item with its category not in the database");
             Assert.DoesNotThrow(
-                delegate { m_MerchantDatabase.AddInventoryItem(new InventoryItem(c_Item2, c_Category1, 1, 1)); },
+                delegate { m_MerchantDatabase.AddInventoryItem(new MerchantItem(c_Item2, c_Category1, 1, 1)); },
                 "Item couldn't be added");
             Assert.AreEqual(2, m_MerchantDatabase.GetNumberOfInventoryItems(), "Number of inventory items doesn't match");
+        }
+
+        [Test]
+        public void AddAndGetCustomer()
+        {
+            const string c_UserName = "customer";
+            Customer customer = new Customer(c_UserName, "password");
+            Assert.Throws(
+                typeof(InvalidOperationException), 
+                delegate { m_MerchantDatabase.FindCustomer(c_UserName); },
+                "No exception raised when customer wasn't found");
+            m_MerchantDatabase.AddCustomer(customer);
+            Customer returned = m_MerchantDatabase.FindCustomer(c_UserName);
+            Assert.AreEqual(customer, returned, "Original and loaded customer are not the same");
+        }
+
+        [Test]
+        public void CantCreateCustomerWithSameUserName()
+        {
+            const string c_UserName = "customer";
+            Customer customer1 = new Customer(c_UserName, "password");
+            Customer customer2 = new Customer(c_UserName, "password2");
+
+            m_MerchantDatabase.AddCustomer(customer1);
+
+            Assert.Throws(
+                typeof(Exception),
+                delegate { m_MerchantDatabase.AddCustomer(customer2); },
+                "No exception raised when customer is already in the database");
+        }
+
+        [Test]
+        public void CantCreateCustomerWithSamePassword()
+        {
+            const string c_Password = "password";
+            Customer customer1 = new Customer("user1", c_Password);
+            Customer customer2 = new Customer("user2", c_Password);
+
+            m_MerchantDatabase.AddCustomer(customer1);
+
+            Assert.DoesNotThrow(
+                delegate { m_MerchantDatabase.AddCustomer(customer2); },
+                "Couldn't add customer with same password");
         }
     }
 }

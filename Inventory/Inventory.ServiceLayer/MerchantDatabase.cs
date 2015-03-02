@@ -37,7 +37,7 @@ namespace Inventory.ServiceLayer
             return Categories.Select(c => c.Name);
         } 
 
-        public void AddInventoryItem(InventoryItem item)
+        public void AddInventoryItem(MerchantItem item)
         {
             if (!Categories.Any(c => c.Name.Equals(item.Category)))
             {
@@ -52,5 +52,21 @@ namespace Inventory.ServiceLayer
             return InventoryObject.Count;
         }
 
+        public void AddCustomer(Customer customer)
+        {
+            if (!Customers.Any(c => c.UserName.Equals(customer.UserName)))
+            {
+                Customers.Add(customer);
+            }
+            else
+            {
+                throw new Exception(string.Format("Customer '{0}' already exists", customer.UserName));
+            }
+        }
+
+        public Customer FindCustomer(string userName)
+        {
+            return Customers.Single(c => c.UserName.Equals(userName));
+        }
     }
 }
