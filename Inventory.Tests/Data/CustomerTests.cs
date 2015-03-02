@@ -10,11 +10,11 @@ namespace Inventory.Tests.Data
         [Test]
         public void CreateCustomer()
         {
-            const string c_CustomerName = "New Customer";
+            const string c_CustomerName = "New LiveCustomer";
             const string c_CustomerPassword = "password";
             Customer customer = new Customer(c_CustomerName, c_CustomerPassword);
-            Assert.AreEqual(c_CustomerName, customer.UserName, "Customer name does not match");
-            Assert.IsTrue(customer.HasPassword(c_CustomerPassword), "Customer password is not as expected");
+            Assert.AreEqual(c_CustomerName, customer.UserName, "LiveCustomer name does not match");
+            Assert.IsTrue(customer.HasPassword(c_CustomerPassword), "LiveCustomer password is not as expected");
         }
 
         [TestCase(null, TestName = "Null")]
@@ -28,7 +28,7 @@ namespace Inventory.Tests.Data
         [TestCase("", TestName = "Empty")]
         public void CustomerPasswordNullOrEmptyThrows(string password)
         {
-            Assert.Throws(typeof(ArgumentException), delegate { new Customer("Customer", password); });
+            Assert.Throws(typeof(ArgumentException), delegate { new Customer("LiveCustomer", password); });
         }
     }
 }

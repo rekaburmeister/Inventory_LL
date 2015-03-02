@@ -117,16 +117,16 @@ namespace Inventory.Tests
             Assert.Throws(
                 typeof(InvalidOperationException),
                 delegate { m_MerchantDatabase.FindSupplier(c_SupplierName); },
-                "No exception raised when Supplier wasn't found");
+                "No exception raised when LiveSupplier wasn't found");
             m_MerchantDatabase.AddSupplier(supplier);
             Supplier returned = m_MerchantDatabase.FindSupplier(c_SupplierName);
-            Assert.AreEqual(supplier, returned, "Original and loaded Supplier are not the same");
+            Assert.AreEqual(supplier, returned, "Original and loaded LiveSupplier are not the same");
         }
 
         [Test]
         public void CantCreateSameSupplierTwice()
         {
-            const string c_SupplierName = "Supplier";
+            const string c_SupplierName = "LiveSupplier";
             Supplier supplier1 = new Supplier(c_SupplierName);
             Supplier supplier2 = new Supplier(c_SupplierName);
 
@@ -135,7 +135,7 @@ namespace Inventory.Tests
             Assert.Throws(
                 typeof(Exception),
                 delegate { m_MerchantDatabase.AddSupplier(supplier2); },
-                "No exception raised when Supplier is already in the database");
+                "No exception raised when LiveSupplier is already in the database");
         }
     }
 }

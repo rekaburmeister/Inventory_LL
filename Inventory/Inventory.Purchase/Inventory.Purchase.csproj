@@ -39,10 +39,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Customer.cs" />
+    <Compile Include="LiveCustomer.cs" />
     <Compile Include="Merchant.cs" />
-    <Compile Include="Supplier.cs" />
+    <Compile Include="LiveSupplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Inventory.Data\Inventory.Data.csproj">
+      <Project>{E80094AC-2A1F-4A1C-8983-3E3E5FD03BEB}</Project>
+      <Name>Inventory.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Inventory.ServiceLayer\Inventory.ServiceLayer.csproj">
+      <Project>{5E9E8E48-A5F6-4A03-98C6-03EF8CADE49F}</Project>
+      <Name>Inventory.ServiceLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

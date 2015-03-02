@@ -65,6 +65,10 @@
       <Project>{e80094ac-2a1f-4a1c-8983-3e3e5fd03beb}</Project>
       <Name>Inventory.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Inventory\Inventory.Purchase\Inventory.Purchase.csproj">
+      <Project>{c77f1f49-a37b-4571-9ced-c854f446e95b}</Project>
+      <Name>Inventory.Purchase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Inventory\Inventory.ServiceLayer\Inventory.ServiceLayer.csproj">
       <Project>{5e9e8e48-a5f6-4a03-98c6-03ef8cade49f}</Project>
       <Name>Inventory.ServiceLayer</Name>
