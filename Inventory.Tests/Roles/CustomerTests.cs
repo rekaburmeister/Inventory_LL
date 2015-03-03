@@ -21,5 +21,18 @@ namespace Inventory.Tests.Roles
             Assert.AreEqual(password, customer.Password, "Password was set correctly");
             Assert.AreEqual(0.0, customer.Balance, "Default balance is 0");
         }
+
+        [TestCase("", "Doe", "john.doe", "JohnDoe11")]
+        [TestCase("John", "", "john.doe", "JohnDoe11")]
+        [TestCase("John", "Doe", "", "JohnDoe11")]
+        [TestCase("John", "Doe", "john.doe", "")]
+        [TestCase(null, "Doe", "john.doe", "JohnDoe11")]
+        [TestCase("John", null, "john.doe", "JohnDoe11")]
+        [TestCase("John", "Doe", null, "JohnDoe11")]
+        [TestCase("John", "Doe", "john.doe", null)]
+        public void InvalidArgumentHandling(string firstName, string surname, string userName, string password)
+        {
+            Assert.Throws(typeof(ArgumentException), () => { new Customer(firstName, surname, userName, password); });
+        }
     }
 }
