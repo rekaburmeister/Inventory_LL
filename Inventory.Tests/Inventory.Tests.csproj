@@ -57,6 +57,7 @@
     <Compile Include="Data\InventoryItemTests.cs" />
     <Compile Include="Data\InventoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roles\CustomerTests.cs" />
     <Compile Include="ServiceTests.cs" />
     <Compile Include="PurchaseTests.cs" />
   </ItemGroup>
@@ -68,6 +69,10 @@
     <ProjectReference Include="..\Inventory\Inventory.Purchase\Inventory.Purchase.csproj">
       <Project>{c77f1f49-a37b-4571-9ced-c854f446e95b}</Project>
       <Name>Inventory.Purchase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Inventory\Inventory.Roles\Inventory.Roles.csproj">
+      <Project>{1fc1ae54-c24b-4d87-b620-0d788a7fc3be}</Project>
+      <Name>Inventory.Roles</Name>
     </ProjectReference>
     <ProjectReference Include="..\Inventory\Inventory.ServiceLayer\Inventory.ServiceLayer.csproj">
       <Project>{5e9e8e48-a5f6-4a03-98c6-03ef8cade49f}</Project>
