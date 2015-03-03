@@ -32,5 +32,24 @@ namespace Inventory.Roles
         {
             return InventoryItems.Single(i => i.Equals(item)).Stock;
         }
+
+        public void DecreaseItemStock(InventoryItem item, int decreaseBy)
+        {
+            var existingItem = InventoryItems.Single(i => i.Equals(item));
+            if (existingItem.Stock <= decreaseBy)
+            {
+                existingItem.Stock = 0;
+                StockWarning();
+            }
+            else
+            {
+                existingItem.Stock -= decreaseBy;
+            }
+        }
+
+        private void StockWarning()
+        {
+            //throw new NotImplementedException("Not done yet");
+        }
     }
 }
