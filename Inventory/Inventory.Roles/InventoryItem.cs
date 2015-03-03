@@ -15,6 +15,7 @@ namespace Inventory.Roles
 
         public bool Equals(InventoryItem other)
         {
+            // I'm debating whether the price should be compared here but at the moment I'm against it
             return Name.Equals(other.Name) && Category.Equals(other.Category);
         }
     }
