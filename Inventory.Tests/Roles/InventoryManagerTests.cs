@@ -12,10 +12,19 @@ namespace Inventory.Tests.Roles
     class InventoryManagerTests
     {
         [Test]
+        public void AddItemToInventory()
+        {
+            InventoryManager manager = new InventoryManager();
+            var item = new InventoryItem("Item 1", "Cat", 2.3, 3);
+            manager.AddItem(item);
+            Assert.AreEqual(3, manager.GetItemStock(item), "Adding an item with an initial stock works");
+        }
+        
+        [Test]
         public void AddExistingItemToInventory()
         {
             InventoryManager manager = new InventoryManager();
-            var item = new InventoryItem {Name = "Item 1", Category = "Cat", Price = 2.3, Stock = 1};
+            var item = new InventoryItem ("Item 1", "Cat", 2.3, 1);
             manager.AddItem(item);
             manager.AddItem(item);
             Assert.AreEqual(2, manager.GetItemStock(item), "Stock is correct");
@@ -29,10 +38,20 @@ namespace Inventory.Tests.Roles
         public void DecreaseItemStock(int original, int decreaseBy, int expectedNumber)
         {
             InventoryManager manager = new InventoryManager();
-            var item = new InventoryItem { Name = "Item 1", Category = "Cat", Price = 2.3, Stock = original };
+            var item = new InventoryItem ( "Item 1", "Cat", 2.3, original );
             manager.AddItem(item);
             manager.DecreaseItemStock(item, decreaseBy);
             Assert.AreEqual(expectedNumber, manager.GetItemStock(item), "Stock is correct");
+        }
+
+        [TestCase(-1, 1)]
+        [TestCase(-0.1, 1)]
+        [TestCase(0, 1)]
+        [TestCase(0, 0)]
+        [TestCase(1, -1)]
+        public void InvalidItem(double price, int stock)
+        {
+            Assert.Throws(typeof(ArgumentException), () => { new InventoryItem("name", "category", price, stock); });
         }
     }
 }
