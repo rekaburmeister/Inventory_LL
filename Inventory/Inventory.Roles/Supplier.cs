@@ -27,7 +27,15 @@ namespace Inventory.Roles
 
         public void PlaceOrder(Order order)
         {
-            
+            foreach (InventoryItem good in order.Goods)
+            {
+                InventoryManager.DecreaseItemStock(good, good.Stock);
+            }
+        }
+
+        public int GetStock(InventoryItem item)
+        {
+            return InventoryManager.GetItemStock(item);
         }
 
         public bool Equals(Supplier other)
